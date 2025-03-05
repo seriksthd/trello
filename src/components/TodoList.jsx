@@ -17,14 +17,16 @@ export default function TodoList() {
 
   useEffect(() => {
     return () => {
-      dispatch(fetchTodos());
+      setTimeout(() => {
+        dispatch(fetchTodos());
+      },1000);
     };
   }, [dispatch]);
 
   return (
     <StyledList>
       {todos.map((item) => (
-          <TodoItem key={item.id} {...item} item={item} />
+        <TodoItem key={item.id} {...item} item={item} />
       ))}
     </StyledList>
   );
