@@ -23,6 +23,5 @@ const StyleLoading = styled.div`
   justify-content: center;
   top: 0;
   left: 0;
-  background-color: #706d6d6d;
   z-index: 100;
 `;

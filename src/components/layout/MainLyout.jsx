@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Header from "../Header";
-import Loading from "../Loading";
 import TodoList from "../TodoList";
 import TodoForm from "../TodoForm";
 import styled from "styled-components";
@@ -203,7 +202,6 @@ export default function MainLyout() {
           </div>
         </StyleModalContiner>
         <StyledAppContainerContent>
-          <Loading />
           <TodoList />
           <TodoForm />
         </StyledAppContainerContent>

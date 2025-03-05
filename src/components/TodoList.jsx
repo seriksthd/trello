@@ -12,14 +12,11 @@ const StyledList = styled.ul`
 
 export default function TodoList() {
   const { todos } = useSelector((state) => state.todos);
-  console.log("todos: ", todos);
   const dispatch = useDispatch();
 
   useEffect(() => {
     return () => {
-      setTimeout(() => {
-        dispatch(fetchTodos());
-      },1000);
+      dispatch(fetchTodos());
     };
   }, [dispatch]);
 

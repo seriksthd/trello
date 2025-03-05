@@ -6,6 +6,7 @@ export const fetchTodos = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get("/todos");
+      console.log('response: ', response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
