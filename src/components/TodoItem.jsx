@@ -83,7 +83,8 @@ export default function TodoItem({ title, id, item }) {
     setnewTrello("");
   };
 
-  const addTrelloHandler = () => {
+  const addTrelloHandler = (e) => {
+    e.preventDefault();
     if (newTrello === "") {
       alert("Please enter a todo title.");
     }
@@ -91,9 +92,6 @@ export default function TodoItem({ title, id, item }) {
     setnewTrello("");
   };
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-  };
   const handleAddCart = (product) => {
     handleModalonRequestClose(true);
     dispatch(postCart(product));
@@ -281,7 +279,7 @@ export default function TodoItem({ title, id, item }) {
                         >
                           <RxCross2
                             style={{ fontSize: "15px", margin: "2px 5px 0 0" }}
-                          />{" "}
+                          />
                           Без цвета
                         </button>
                       </StyleColorOpen>
@@ -330,7 +328,7 @@ export default function TodoItem({ title, id, item }) {
             ))}
             {addOpen && (
               <li>
-                <form onSubmit={submitHandler}>
+                <form onSubmit={addTrelloHandler}>
                   <Textarea
                     onChange={(e) => setnewTrello(e.target.value)}
                     value={newTrello}
@@ -342,7 +340,7 @@ export default function TodoItem({ title, id, item }) {
                     maxLength="512"
                     autoComplete="off"
                     placeholder="Введите имя колонки…"
-                  ></Textarea>
+                  />
                   <div
                     style={{
                       display: "flex",

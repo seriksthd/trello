@@ -17,7 +17,7 @@ export default function TodoForm() {
       inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
     }
   }, [todoValue]);
-  const submitHandler = async (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
 
     if (todoValue.trim() === "") {
@@ -31,7 +31,6 @@ export default function TodoForm() {
     };
 
     dispatch(addTodo(newTodo));
-    console.log("newTodo: ", newTodo);
     setTodoValue("");
   };
 
@@ -59,10 +58,10 @@ export default function TodoForm() {
       {isAddTrello ? (
         <StyledForm onSubmit={submitHandler}>
           <Textarea
-            ref={inputRef}
             style={{ height: textareaHeight, resize: "none" }}
             value={todoValue}
             onChange={changeHandler}
+            ref={inputRef}
             spellCheck="false"
             dir="auto"
             data-testid="list-name-textarea"
