@@ -5,9 +5,9 @@ export const fetchTodos = createAsyncThunk(
   "todos/fetchTodos",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get("/todos");
-      console.log('response: ', response.data);
-      return response.data;
+      const { data } = await axiosInstance.get("/todos");
+      console.log("response: ", data);
+      return data
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -18,8 +18,8 @@ export const addTodo = createAsyncThunk(
   "todos/addTodo",
   async (newTodo, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post("/todos", newTodo);
-      return response.data;
+      const { data } = await axiosInstance.post("/todos", newTodo);
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -42,8 +42,8 @@ export const updateTodo = createAsyncThunk(
   "todos/updateTodo",
   async ({ id, title }, { _, rejectWithValue }) => {
     try {
-      const response = await axiosInstance.patch(`/todos/${id}`, { title });
-      return response.data;
+      const { data } = await axiosInstance.patch(`/todos/${id}`, { title });
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -58,12 +58,11 @@ export const addTrelloItemAsync = createAsyncThunk(
       const updatedTrello = existingTodo.trello
         ? [...existingTodo.trello, { title: trelloItem, id: Date.now() }]
         : [trelloItem];
-      const response = await axiosInstance.patch(`/todos/${id}`, {
+      const { data } = await axiosInstance.patch(`/todos/${id}`, {
         trello: updatedTrello,
       });
-      console.log("response: ", response.data);
 
-      return response.data;
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }

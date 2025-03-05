@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Header from "../Header";
-import TodoList from "../TodoList";
 import TodoForm from "../TodoForm";
 import styled from "styled-components";
 import { FaTrello } from "react-icons/fa";
@@ -9,6 +8,7 @@ import { IoMdSettings } from "react-icons/io";
 import { HiArrowSmRight, HiOutlinePlus } from "react-icons/hi";
 import { FaCalendarDays, FaTableList } from "react-icons/fa6";
 import { BiChevronDown } from "react-icons/bi";
+import TodoList from "../TodoList";
 
 export default function MainLyout() {
   const [IsArticle, setIsArticle] = useState(false);
@@ -202,7 +202,7 @@ export default function MainLyout() {
           </div>
         </StyleModalContiner>
         <StyledAppContainerContent>
-          <TodoList />
+          <TodoList/>
           <TodoForm />
         </StyledAppContainerContent>
       </StyleBagraund>
