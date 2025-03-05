@@ -10,13 +10,14 @@ import styled from "styled-components";
 import { BsArrowsCollapseVertical, BsThreeDots } from "react-icons/bs";
 import { PiPresentationDuotone } from "react-icons/pi";
 import { HiOutlinePlus } from "react-icons/hi";
-import { StyledBtnAdd } from "./TodoForm";
+import { StyledBtnAdd } from "./TrelloForm";
 import { RxCross2 } from "react-icons/rx";
 import Modal from "./UI/Modal";
 import { backgroundColor, ModalText } from "../utils/constants/modal";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
+import { toast, ToastContainer } from "react-toastify";
 
-export default function TodoItem({ title, id, item }) {
+export default function TrelloItem({ title, id, trello }) {
   const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
@@ -25,6 +26,7 @@ export default function TodoItem({ title, id, item }) {
   const [newValue, setNewValue] = useState(title);
   const [textareaHeight, setTextareaHeight] = useState();
   const [isOpenColor, setIsOpenColor] = useState(false);
+  const [backgroundColorState, setBackgroundColorState] = useState("#101204");
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -55,8 +57,9 @@ export default function TodoItem({ title, id, item }) {
     if (newValue.trim()) {
       dispatch(updateTodo({ id: id, title: newValue.trim() }));
       setEdit(false);
+      toast.success("Тур успешно создан !");
     } else {
-      alert("Title cannot be empty!");
+      return toast.error("заполните!!!");
     }
   };
 
@@ -86,9 +89,11 @@ export default function TodoItem({ title, id, item }) {
   const addTrelloHandler = (e) => {
     e.preventDefault();
     if (newTrello === "") {
-      alert("Please enter a todo title.");
+      return toast.error("заполните!!!");
+    } else {
+      dispatch(addTrelloItemAsync({ id, trelloItem: newTrello }));
+      toast.success("успешно создан !");
     }
-    dispatch(addTrelloItemAsync({ id, trelloItem: newTrello }));
     setnewTrello("");
   };
 
@@ -107,15 +112,22 @@ export default function TodoItem({ title, id, item }) {
   const handleOpenColor = () => {
     setIsOpenColor(!isOpenColor);
   };
+  const handleBackgroundColor = (props) => {
+    setBackgroundColorState(props);
+  };
+  const handleBackgroundColorOff = () => {
+    setBackgroundColorState("#101204");
+  };
   return (
     <StyledListItem>
-      <StyledContinerLiDiv>
+      <StyledContinerLiDiv style={{ backgroundColor: backgroundColorState }}>
         <div
           style={{
             padding: "7px",
             display: "flex",
             flexDirection: "column",
             gap: "10px",
+            maxHeight: "86vh",
           }}
         >
           <StyleTitleContiner>
@@ -239,10 +251,8 @@ export default function TodoItem({ title, id, item }) {
                         style={{
                           height: isOpenColor ? "122px" : "0",
                           width: "100%",
-                          display: "flex",
-                          flexDirection: "column",
+                          display: isOpenColor ? "block" : "none",
                           gap: "7px",
-                          display: isOpenColor ? "" : "none",
                         }}
                       >
                         <div
@@ -261,6 +271,7 @@ export default function TodoItem({ title, id, item }) {
                                 height: "35px",
                                 borderRadius: "5px",
                               }}
+                              onClick={() => handleBackgroundColor(item)}
                               key={item}
                             ></div>
                           ))}
@@ -276,6 +287,7 @@ export default function TodoItem({ title, id, item }) {
                             padding: "8px",
                             borderRadius: "3px",
                           }}
+                          onClick={handleBackgroundColorOff}
                         >
                           <RxCross2
                             style={{ fontSize: "15px", margin: "2px 5px 0 0" }}
@@ -307,7 +319,7 @@ export default function TodoItem({ title, id, item }) {
               </div>
             )}
             <StyleLenth>
-              Карточек соответствует фильтрам: {item.trello.length}
+              Карточек соответствует фильтрам: {trello.length}
             </StyleLenth>
           </StyleTitleContiner>
           <ol
@@ -316,12 +328,12 @@ export default function TodoItem({ title, id, item }) {
               gap: "10px",
               flexDirection: "column",
               overflowY: "scroll",
-              height: addOpen ? "75.5%" : "70%",
+              height: addOpen ? "75.5vh" : "70%",
               scrollbarWidth: "thin",
               scrollbarColor: " #a6c5e229  #091e420f",
             }}
           >
-            {item.trello.map((trelloItem) => (
+            {trello.map((trelloItem) => (
               <StyleTrelloItem key={trelloItem.id}>
                 {trelloItem.title}
               </StyleTrelloItem>
@@ -380,6 +392,7 @@ export default function TodoItem({ title, id, item }) {
           )}
         </div>
       </StyledContinerLiDiv>
+      <ToastContainer />
     </StyledListItem>
   );
 }

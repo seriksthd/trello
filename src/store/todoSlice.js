@@ -6,8 +6,7 @@ export const fetchTodos = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.get("/todos");
-      console.log("response: ", data);
-      return data
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -133,7 +132,7 @@ const todoSlice = createSlice({
       })
       .addCase(postCart.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.cart.push(action.payload);
+        state.cart = [{ ...action.payload }];
       })
       .addCase(postCart.pending, (state) => {
         state.isLoading = true;

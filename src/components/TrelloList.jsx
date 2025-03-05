@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchTodos } from "../store/todoSlice";
-import TodoItem from "./TodoItem";
 import styled from "styled-components";
+import TrelloItem from "./TrelloItem";
 
 const StyledList = styled.ul`
   list-style: none;
@@ -10,7 +10,7 @@ const StyledList = styled.ul`
   display: flex;
 `;
 
-export default function TodoList() {
+export default function TrelloList() {
   const { todos } = useSelector((state) => state.todos);
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ export default function TodoList() {
   return (
     <StyledList>
       {todos.map((item) => (
-        <TodoItem key={item.id} {...item} item={item} />
+        <TrelloItem key={item.id} {...item} />
       ))}
     </StyledList>
   );

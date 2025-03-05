@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { addTodo } from "../store/todoSlice";
 import styled from "styled-components";
 import { RxCross2 } from "react-icons/rx";
+import { toast, ToastContainer } from "react-toastify";
 
-export default function TodoForm() {
+export default function TrelloForm() {
   const [todoValue, setTodoValue] = useState("");
   const dispatch = useDispatch();
   const [isAddTrello, setIsAddTrello] = useState(false);
@@ -19,18 +20,17 @@ export default function TodoForm() {
   }, [todoValue]);
   const submitHandler = (e) => {
     e.preventDefault();
-
-    if (todoValue.trim() === "") {
-      alert("Please enter a todo title.");
-      return;
-    }
     const newTodo = {
       title: todoValue,
       id: Date.now(),
       trello: [],
     };
-
-    dispatch(addTodo(newTodo));
+    if (todoValue.trim() === "") {
+      toast.error("заполните!!!");
+    } else {
+      dispatch(addTodo(newTodo));
+    }
+    toast.success("успешно создан !");
     setTodoValue("");
   };
 
@@ -84,6 +84,7 @@ export default function TodoForm() {
           Добавить список
         </StyledBtnAddOpen>
       )}
+      <ToastContainer />
     </div>
   );
 }
