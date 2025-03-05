@@ -328,7 +328,7 @@ export default function TrelloItem({ title, id, trello }) {
               gap: "10px",
               flexDirection: "column",
               overflowY: "scroll",
-              height: addOpen ? "75.5vh" : "70%",
+              height: addOpen ? "75.5%" : "70%",
               scrollbarWidth: "thin",
               scrollbarColor: " #a6c5e229  #091e420f",
             }}
