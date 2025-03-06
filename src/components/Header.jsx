@@ -7,6 +7,7 @@ import { FiHelpCircle } from "react-icons/fi";
 import { IoIosNotifications } from "react-icons/io";
 import { WiStars } from "react-icons/wi";
 import styled from "styled-components";
+import { headerNav } from "../utils/constants/constants";
 
 export default function Header() {
   return (
@@ -15,23 +16,13 @@ export default function Header() {
         <BsFillGrid3X3GapFill style={{ fontSize: "20px" }} />
         <FaTrello style={{ fontSize: "20px" }} />
         <h2>Trello</h2>
-        <StyledDown>
-          <h3>Рабочие пространства</h3>
-          <BiChevronDown style={{ fontSize: "20px" }} />
-        </StyledDown>
-        <StyledDown>
-          <h3>Недавние</h3>
-          <BiChevronDown style={{ fontSize: "20px" }} />
-        </StyledDown>
-        <StyledDown>
-          <h3>В избранном</h3>
-          <BiChevronDown style={{ fontSize: "20px" }} />
-        </StyledDown>
-        <StyledDown>
-          <h3>Шаблоны </h3>
-          <BiChevronDown style={{ fontSize: "20px" }} />
-        </StyledDown>
-        <StyledBtnCreate>Создайть</StyledBtnCreate>
+        {headerNav.map((item) => (
+          <StyledDown key={item}>
+            <h3>{item}</h3>
+            <BiChevronDown style={{ fontSize: "20px" }} />
+          </StyledDown>
+        ))}
+        <StyledBtnCreate>Создать</StyledBtnCreate>
       </StyledContyner>
       <StyledContyner>
         <StryledBtnPremium>

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import Header from "../Header";
 import styled from "styled-components";
-
 import { HiArrowSmRight } from "react-icons/hi";
-
 import TrelloList from "../TrelloList";
 import TrelloForm from "../TrelloForm";
 import NavigationNav from "../NavigationNav";
@@ -22,32 +20,34 @@ export default function MainLyout() {
         <Header />
       </div>
       <StyleBagraund style={{ display: "flex" }}>
-        <StyleModalContiner
-          style={{
-            position: IsArticle ? "absolute" : "",
-            left: IsArticle ? "-250px" : "0px",
-          }}
-        >
-          <span
+        <div style={{position:"relative"}}>
+          <StyleModalContiner
             style={{
-              position: "absolute",
-              top: "17px",
-              left: IsArticle ? "250px" : "-40px",
+              position: IsArticle ? "absolute" : "",
+              left: IsArticle ? "-250px" : "0px",
             }}
           >
-            <HiArrowSmRight
-              onClick={handleIsCloseeArticle}
+            <span
               style={{
-                fontSize: "22px",
-                borderRadius: "50%",
-                backgroundColor: "hsl(206deg 13.7% 10% / 90%) ",
+                position: "absolute",
+                top: "17px",
+                left: IsArticle ? "250px" : "-40px",
               }}
-            />
-          </span>
-          <NavigationNav handleIsOpenArticle={handleIsOpenArticle}/>
-        </StyleModalContiner>
+            >
+              <HiArrowSmRight
+                onClick={handleIsCloseeArticle}
+                style={{
+                  fontSize: "22px",
+                  borderRadius: "50%",
+                  backgroundColor: "hsl(206deg 13.7% 10% / 90%) ",
+                }}
+              />
+            </span>
+            <NavigationNav handleIsOpenArticle={handleIsOpenArticle} />
+          </StyleModalContiner>
+        </div>
         <StyledAppContainerContent>
-          <TrelloList/>
+          <TrelloList />
           <TrelloForm />
         </StyledAppContainerContent>
       </StyleBagraund>
@@ -64,10 +64,11 @@ const StyleModalContiner = styled.article`
   z-index: 2;
   bottom: 0;
   left: 0px;
-  top: 50px;
+  top: 0px;
   transition: transform 100ms ease-in;
   background-color: #1d2125f0;
   backdrop-filter: blur(6px);
+  transition: all 0.2s ease-in-out;
 `;
 const StyleBagraund = styled.div`
   background-image: url("https://trello-backgrounds.s3.amazonaws.com/SharedBackground/1365x2048/402bc701b668a09d4ce4a11337d5458b/photo-1739911013843-0380d6504480.webp");

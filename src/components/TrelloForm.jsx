@@ -9,7 +9,6 @@ export default function TrelloForm() {
   const [todoValue, setTodoValue] = useState("");
   const dispatch = useDispatch();
   const [isAddTrello, setIsAddTrello] = useState(false);
-  const [textareaHeight, setTextareaHeight] = useState();
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -58,7 +57,7 @@ export default function TrelloForm() {
       {isAddTrello ? (
         <StyledForm onSubmit={submitHandler}>
           <Textarea
-            style={{ height: textareaHeight, resize: "none" }}
+            style={{ resize: "none" }}
             value={todoValue}
             onChange={changeHandler}
             ref={inputRef}

@@ -23,7 +23,7 @@ export default function TrelloList() {
   return (
     <StyledList>
       {todos.map((item) => (
-        <TrelloItem key={item.id} {...item} />
+        <TrelloItem key={item.id} {...item} item={item}/>
       ))}
     </StyledList>
   );
