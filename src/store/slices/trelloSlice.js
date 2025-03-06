@@ -10,9 +10,8 @@ import {
 const TrelloSlice = createSlice({
   name: "trello",
   initialState: {
-    todos: [],
+    trello: [],
     isLoading: false,
-    profileImage: localStorage.getItem("profileImage") || null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -22,14 +21,14 @@ const TrelloSlice = createSlice({
       })
       .addCase(fetchTodos.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.todos = action.payload;
+        state.trello = action.payload;
       })
       .addCase(fetchTodos.rejected, (state) => {
         state.isLoading = false;
       })
       .addCase(addTodo.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.todos.push(action.payload);
+        state.trello.push(action.payload);
       })
       .addCase(addTodo.pending, (state) => {
         state.isLoading = true;
@@ -43,7 +42,7 @@ const TrelloSlice = createSlice({
       })
       .addCase(deleteTodo.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+        state.trello = state.trello.filter((todo) => todo.id !== action.payload);
       })
       .addCase(deleteTodo.rejected, (state) => {
         state.isLoading = false;

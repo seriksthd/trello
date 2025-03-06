@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { BsArrowsCollapseVertical, BsThreeDots } from "react-icons/bs";
 import { PiPresentationDuotone } from "react-icons/pi";
@@ -23,7 +23,12 @@ import {
   Textarea,
 } from "./style/TrelloItem";
 import { StyledBtnAdd } from "./TrelloForm";
-import { addTrelloItemAsync, postCart, updateTodo } from "../store/thunks/trelloThunks";
+import {
+  addTrelloItemAsync,
+  postCart,
+  updateTodo,
+} from "../store/thunks/trelloThunks";
+import styled from "styled-components";
 
 export default function TrelloItem({ title, id, trello, item }) {
   const dispatch = useDispatch();
@@ -115,6 +120,7 @@ export default function TrelloItem({ title, id, trello, item }) {
   const handleBackgroundColorOff = () => {
     setBackgroundColorState("#101204");
   };
+
   return (
     <StyledListItem>
       <StyledContinerLiDiv style={{ backgroundColor: backgroundColorState }}>
@@ -235,3 +241,14 @@ export default function TrelloItem({ title, id, trello, item }) {
     </StyledListItem>
   );
 }
+const StyleLoading = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  z-index: 100;
+`;

@@ -10,22 +10,24 @@ import styled from "styled-components";
 import { headerNav, profileList } from "../utils/constants/constants";
 import Modal from "./UI/Modal";
 import { StyleLine } from "../pages/ModalList";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../store/auth/authSlice";
 
 export default function Header() {
   const [isProfile, setIsProfile] = useState(false);
-  const authString = localStorage.getItem("auth");
-
-  const auth = JSON.parse(authString);
+  const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth.auth);
+  const dispatch = useDispatch();
   const handleOpenProfile = () => {
     setIsProfile(true);
   };
   const handleCloseProfile = () => {
     setIsProfile(false);
   };
+
   const handleLogaut = () => {
-    localStorage.removeItem("auth");
-    Navigate("/login");
+    dispatch(logout(navigate));
   };
 
   return (
@@ -80,8 +82,8 @@ export default function Header() {
               >
                 <StyleAvaProfile></StyleAvaProfile>
                 <div style={{ fontSize: "14px" }}>
-                  <p>{auth.data.firstName}</p>
-                  <p>{auth.data.email}</p>
+                  {auth && auth.data && <p>{auth.data.firstName}</p>}
+                  {auth && auth.data && <p>{auth.data.email}</p>}
                 </div>
               </div>
               <ul
@@ -118,7 +120,7 @@ export default function Header() {
                   }}
                 >
                   {profileList.map((item) => (
-                    <li>{item}</li>
+                    <li key={item}>{item}</li>
                   ))}
                 </ul>
               </nav>
@@ -158,7 +160,7 @@ export default function Header() {
                 }}
                 onClick={handleLogaut}
               >
-                <li style={{ marginTop: "5px", cursor: "pointer" }} >Выйти </li>
+                <li style={{ marginTop: "5px", cursor: "pointer" }}>Выйти </li>
               </ul>
             </StyleProfileCOntiner>
           </Modal>

@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { trelloReducer } from "./slices/trelloSlice";
-import { authSlice } from "./slices/authSlice";
+import { authSlice } from "./auth/authSlice";
 
 export const store = configureStore({
   reducer: {
-    todos: trelloReducer,
+    trello: trelloReducer,
     auth: authSlice.reducer,
   },
 });

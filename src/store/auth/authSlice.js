@@ -6,8 +6,22 @@ export const authSlice = createSlice({
   initialState: {
     role: null,
     registrationStatus: null,
+    auth: localStorage.getItem("auth")
+      ? JSON.parse(localStorage.getItem("auth"))
+      : null,
   },
-  reducers: {},
+  reducers: {
+    logout: (state, { payload }) => {
+      state.role = null;
+      state.auth = null;
+      localStorage.removeItem("auth");
+      payload("/");
+    },
+    loginSuccess: (state, action) => {
+      state.auth = action.payload;
+      state.role = action.payload.data.role;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(signUpRequest.pending, (state) => {
@@ -23,6 +37,10 @@ export const authSlice = createSlice({
 
     builder.addCase(signInRequest.fulfilled, (state, action) => {
       state.role = action.payload.data.role;
+      state.auth = action.payload;
     });
   },
 });
+
+export const { logout, loginSuccess } = authSlice.actions;
+export default authSlice.reducer;

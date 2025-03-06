@@ -8,6 +8,7 @@ import { signInRequest } from "../../store/thunks/authThunks";
 export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log('navigate: ', navigate);
   const {
     register,
     handleSubmit,

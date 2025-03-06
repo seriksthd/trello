@@ -11,7 +11,7 @@ const StyledList = styled.ul`
 `;
 
 export default function TrelloList() {
-  const { todos } = useSelector((state) => state.todos);
+  const { trello } = useSelector((state) => state.trello);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function TrelloList() {
 
   return (
     <StyledList>
-      {todos.map((item) => (
+      {trello.map((item) => (
         <TrelloItem key={item.id} {...item} item={item} />
       ))}
     </StyledList>
