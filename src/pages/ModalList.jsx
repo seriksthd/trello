@@ -9,7 +9,7 @@ import Modal from "../components/UI/Modal";
 import styled from "styled-components";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch } from "react-redux";
-import { deleteTodo } from "../store/todoSlice";
+import { deleteTodo } from "../store/thunks/trelloThunks";
 export default function ModalList({
   id,
   handleBackgroundColorOff,
@@ -261,10 +261,6 @@ const IconChevronDown = styled(BiChevronDown)`
   transition: transform 0.3s ease-in-out;
 `;
 
-const IconChevronUp = styled(BiChevronUp)`
-  font-size: 20px;
-  transition: transform 0.3s ease-in-out;
-`;
 const StyleBorserPrmunText = styled.span`
   padding: 4px;
   background: linear-gradient(79.47deg, #9f8fef 25.62%, #5e4db2 99.57%);
@@ -292,7 +288,7 @@ const StyleBorserPrmun = styled.span`
     background-position-x: -1px;
   }
 `;
-const StyleLine = styled.li`
+export const StyleLine = styled.li`
   list-style: none;
   &::before {
     height: 1px;

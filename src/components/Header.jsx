@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
@@ -7,9 +7,27 @@ import { FiHelpCircle } from "react-icons/fi";
 import { IoIosNotifications } from "react-icons/io";
 import { WiStars } from "react-icons/wi";
 import styled from "styled-components";
-import { headerNav } from "../utils/constants/constants";
+import { headerNav, profileList } from "../utils/constants/constants";
+import Modal from "./UI/Modal";
+import { StyleLine } from "../pages/ModalList";
+import { Navigate } from "react-router-dom";
 
 export default function Header() {
+  const [isProfile, setIsProfile] = useState(false);
+  const authString = localStorage.getItem("auth");
+
+  const auth = JSON.parse(authString);
+  const handleOpenProfile = () => {
+    setIsProfile(true);
+  };
+  const handleCloseProfile = () => {
+    setIsProfile(false);
+  };
+  const handleLogaut = () => {
+    localStorage.removeItem("auth");
+    Navigate("/login");
+  };
+
   return (
     <StyledHeader>
       <StyledContyner>
@@ -39,11 +57,136 @@ export default function Header() {
         </StyledInputFilter>
         <IoIosNotifications style={{ fontSize: "20px" }} />
         <FiHelpCircle style={{ fontSize: "20px" }} />
-        <StyledPRofile></StyledPRofile>
+        <StyledPRofile onClick={handleOpenProfile}></StyledPRofile>
+        {isProfile && (
+          <Modal onClose={handleCloseProfile}>
+            <StyleProfileCOntiner>
+              <h2
+                style={{
+                  fontSize: "11px",
+                  marginTop: "20px",
+                  textTransform: "uppercase",
+                }}
+              >
+                Учетная запись
+              </h2>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  margin: "15px 0 15px 0",
+                }}
+              >
+                <StyleAvaProfile></StyleAvaProfile>
+                <div style={{ fontSize: "14px" }}>
+                  <p>{auth.data.firstName}</p>
+                  <p>{auth.data.email}</p>
+                </div>
+              </div>
+              <ul
+                style={{
+                  listStyle: "none",
+                  display: "flex",
+                  gap: "18px",
+                  flexDirection: "column",
+                  marginBottom: "15px",
+                }}
+              >
+                <li>Переключение аккаунтов</li>
+                <li>Управление аккаунтом</li>
+              </ul>
+              <StyleLine />
+              <h2
+                style={{
+                  fontSize: "11px",
+                  marginTop: "18px",
+                  marginBottom: "20px",
+                  textTransform: "uppercase",
+                }}
+              >
+                Trello
+              </h2>
+              <nav>
+                <ul
+                  style={{
+                    listStyle: "none",
+                    display: "flex",
+                    gap: "18px",
+                    flexDirection: "column",
+                    marginBottom: "15px",
+                  }}
+                >
+                  {profileList.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </nav>
+              <StyleLine />
+              <ul
+                style={{
+                  listStyle: "none",
+                  display: "flex",
+                  gap: "18px",
+                  flexDirection: "column",
+                  marginBottom: "15px",
+                }}
+              >
+                <li>Создать рабочее пространство</li>
+              </ul>
+              <StyleLine />
+              <ul
+                style={{
+                  listStyle: "none",
+                  display: "flex",
+                  gap: "18px",
+                  flexDirection: "column",
+                  marginBottom: "15px",
+                }}
+              >
+                <li>Помощь</li>
+                <li>Горячие клавиши</li>
+              </ul>
+              <StyleLine />
+              <ul
+                style={{
+                  listStyle: "none",
+                  display: "flex",
+                  gap: "18px",
+                  flexDirection: "column",
+                  marginBottom: "15px",
+                }}
+                onClick={handleLogaut}
+              >
+                <li style={{ marginTop: "5px", cursor: "pointer" }}>Выйти </li>
+              </ul>
+            </StyleProfileCOntiner>
+          </Modal>
+        )}
       </StyledContyner>
     </StyledHeader>
   );
 }
+const StyleProfileCOntiner = styled.div`
+  position: fixed;
+  right: 10px;
+  top: 50px;
+  background-color: #282e33;
+  width: 304px;
+  height: 616px;
+  border-radius: 7px;
+  padding: 15px;
+  z-index: 3;
+  font-size: 15px;
+`;
+const StyleAvaProfile = styled.div`
+  background-image: url("https://trello-members.s3.amazonaws.com/67c0a74cd81bc6949159778f/080ab9ede7effb8985cbacd6f9264151/170.png");
+  background-size: 40px;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  z-index: 4;
+`;
 const StyleCOntinetInput = styled.div`
   max-width: none;
   height: 32px;

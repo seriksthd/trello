@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchTodos } from "../store/todoSlice";
 import styled from "styled-components";
 import TrelloItem from "./TrelloItem";
+import { fetchTodos } from "../store/thunks/trelloThunks";
 
 const StyledList = styled.ul`
   list-style: none;
@@ -23,7 +23,7 @@ export default function TrelloList() {
   return (
     <StyledList>
       {todos.map((item) => (
-        <TrelloItem key={item.id} {...item} item={item}/>
+        <TrelloItem key={item.id} {...item} item={item} />
       ))}
     </StyledList>
   );

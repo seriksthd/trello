@@ -3,10 +3,11 @@ import { createPortal } from "react-dom";
 
 import styled from "styled-components";
 
-export default function Modal({ onClose }) {
+export default function Modal({ onClose, children }) {
   return createPortal(
     <>
       <Backdrop onClick={onClose} />
+      <div>{children}</div>
     </>,
     document.getElementById("root-modal")
   );

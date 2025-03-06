@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../store/todoSlice";
 import styled from "styled-components";
 import { RxCross2 } from "react-icons/rx";
 import { toast, ToastContainer } from "react-toastify";
+import { addTodo } from "../store/thunks/trelloThunks";
 
 export default function TrelloForm() {
   const [todoValue, setTodoValue] = useState("");

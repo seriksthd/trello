@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTrelloItemAsync, postCart, updateTodo } from "../store/todoSlice";
+
 import { BsArrowsCollapseVertical, BsThreeDots } from "react-icons/bs";
 import { PiPresentationDuotone } from "react-icons/pi";
 import { HiOutlinePlus } from "react-icons/hi";
@@ -23,6 +23,7 @@ import {
   Textarea,
 } from "./style/TrelloItem";
 import { StyledBtnAdd } from "./TrelloForm";
+import { addTrelloItemAsync, postCart, updateTodo } from "../store/thunks/trelloThunks";
 
 export default function TrelloItem({ title, id, trello, item }) {
   const dispatch = useDispatch();
@@ -72,7 +73,6 @@ export default function TrelloItem({ title, id, trello, item }) {
 
   const handleAddOpen = () => {
     setAddOpen(true);
-    handleModalonRequestClose(true);
     setTimeout(() => {
       const textarea = document.querySelector(
         '[data-testid="list-card-composer-textarea"]'
@@ -101,7 +101,7 @@ export default function TrelloItem({ title, id, trello, item }) {
   };
 
   const handleAddCart = (product) => {
-    setModalOpen(true);
+    setModalOpen(false);
     dispatch(postCart(product));
   };
   const handleModalOpen = () => {
@@ -110,7 +110,7 @@ export default function TrelloItem({ title, id, trello, item }) {
 
   const handleBackgroundColor = (props) => {
     setBackgroundColorState(props);
-    setActiveColorId(props)
+    setActiveColorId(props);
   };
   const handleBackgroundColorOff = () => {
     setBackgroundColorState("#101204");

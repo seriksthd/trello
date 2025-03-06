@@ -87,3 +87,10 @@ export const Automation = [
     icon: HiMiniArrowUpRight,
   },
 ];
+export const profileList = [
+  "Профиль и доступ",
+  "Действия",
+  "Карточки",
+  "Настройки",
+  "Выбор темы",
+]
