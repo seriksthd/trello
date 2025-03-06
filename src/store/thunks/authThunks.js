@@ -26,8 +26,9 @@ export const signInRequest = createAsyncThunk(
   async ({ userData, navigate }, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.post("/auth", userData);
+
       localStorage.setItem("auth", JSON.stringify(data));
-      
+
       if (data.data.role === "ADMIN") {
         navigate("/admin");
       } else {

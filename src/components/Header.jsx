@@ -158,7 +158,7 @@ export default function Header() {
                 }}
                 onClick={handleLogaut}
               >
-                <li style={{ marginTop: "5px", cursor: "pointer" }}>Выйти </li>
+                <li style={{ marginTop: "5px", cursor: "pointer" }} >Выйти </li>
               </ul>
             </StyleProfileCOntiner>
           </Modal>
