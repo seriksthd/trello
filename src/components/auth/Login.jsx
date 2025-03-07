@@ -71,17 +71,7 @@ export const Login = () => {
   );
 };
 
-export const neonGlow = keyframes`
-  0% {
-    box-shadow: 0 0 1px #fff, 0 0 1px #fff, 0 0 15px #0ff, 0 0 20px #0ff, 0 0 205px #0ff, 0 0 100px #0ff;
-  }
-  50% {
-    box-shadow: 0 0 1px #fff, 0 0 1px #fff, 0 0 12px #0ff, 0 0 17px #0ff, 0 0 22px #0ff, 0 0 50px #0ff;
-  }
-  100% {
-    box-shadow: 0 0 1px #fff, 0 0 1px #fff, 0 0 15px #0ff, 0 0 20px #0ff, 0 0 205px #0ff, 0 0 100px #0ff;
-  }
-`;
+
 
 export const fadeIn = keyframes`
   from {
@@ -121,7 +111,6 @@ export const AnimatedH1 = styled.h1`
   color: #0ff;
   text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
   font-size: 2.5em;
-  animation: ${neonGlow} 2s infinite alternate;
   border-radius: 12px;
 `;
 
