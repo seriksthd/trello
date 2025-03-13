@@ -36,5 +36,5 @@ export const sigInRequest = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  } 
+  }
 );
