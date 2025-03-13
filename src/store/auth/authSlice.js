@@ -1,46 +1,57 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signInRequest, signUpRequest } from "../thunks/authThunks";
+import { sigInRequest, singUpRequest } from "../thunks/authThunks";
 
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
     role: null,
-    registrationStatus: null,
-    auth: localStorage.getItem("auth")
-      ? JSON.parse(localStorage.getItem("auth"))
-      : null,
+    token: null,
+    isLoading: false,
+    isError: null,
   },
   reducers: {
-    logout: (state, { payload }) => {
-      state.role = null;
-      state.auth = null;
-      localStorage.removeItem("auth");
-      payload("/");
+    isAuth: (state, action) => {
+      state.role = action.payload;
     },
-    loginSuccess: (state, action) => {
-      state.auth = action.payload;
-      state.role = action.payload.data.role;
+    logout: (state) => {
+      state.role = null;
+      state.token = null;
+      localStorage.removeItem("auth");
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(signUpRequest.pending, (state) => {
-        state.registrationStatus = null;
+      .addCase(singUpRequest.pending, (state) => {
+        state.isLoading = true;
+        state.isError = null; 
       })
-      .addCase(signUpRequest.fulfilled, (state, action) => {
-        state.registrationStatus = null;
-        state.role = action.payload.role;
+      .addCase(singUpRequest.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.role = action.payload.data.role;
+        state.token = action.payload.data.token;
+        localStorage.setItem("auth", JSON.stringify(action.payload)); 
       })
-      .addCase(signUpRequest.rejected, (state, action) => {
-        state.registrationStatus = action.payload;
+      .addCase(singUpRequest.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = action.payload; 
       });
 
-    builder.addCase(signInRequest.fulfilled, (state, action) => {
-      state.role = action.payload.data.role;
-      state.auth = action.payload;
-    });
+    builder
+      .addCase(sigInRequest.pending, (state) => {
+        state.isLoading = true;
+        state.isError = null;
+      })
+      .addCase(sigInRequest.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.role = action.payload.data.role;
+        state.token = action.payload.data.token;
+        localStorage.setItem("auth", JSON.stringify(action.payload));
+      })
+      .addCase(sigInRequest.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = action.payload;
+      });
   },
 });
 
-export const { logout, loginSuccess } = authSlice.actions;
-export default authSlice.reducer;
+export const { isAuth, logout } = authSlice.actions;

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
-import { signInRequest } from "../../store/thunks/authThunks";
+import { sigInRequest } from "../../store/thunks/authThunks";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export const Login = () => {
   });
 
   const submitHandler = (userData) => {
-    dispatch(signInRequest({ userData, navigate }));
+    dispatch(sigInRequest({ userData, navigate }));
   };
 
   return (

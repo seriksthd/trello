@@ -19,6 +19,7 @@ export default function Header() {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth.auth);
   const dispatch = useDispatch();
+  const { data } = JSON.parse(localStorage.getItem("auth")) || {};
   const handleOpenProfile = () => {
     setIsProfile(true);
   };
@@ -82,8 +83,8 @@ export default function Header() {
               >
                 <StyleAvaProfile></StyleAvaProfile>
                 <div style={{ fontSize: "14px" }}>
-                  {auth && auth.data && <p>{auth.data.firstName}</p>}
-                  {auth && auth.data && <p>{auth.data.email}</p>}
+                  {data && data && <p>{data.firstName}</p>}
+                  {data && data && <p>{data.email}</p>}
                 </div>
               </div>
               <ul

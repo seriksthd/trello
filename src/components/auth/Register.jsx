@@ -1,11 +1,18 @@
 import React from "react";
-import styled from "styled-components";
 
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { signUpRequest } from "../../store/thunks/authThunks";
-import { AnimatedButton, AnimatedForm, AnimatedH1, AnimatedInput, ErrorSpan, RegisterContainer, Section } from "./Login";
+import {  singUpRequest } from "../../store/thunks/authThunks";
+import {
+  AnimatedButton,
+  AnimatedForm,
+  AnimatedH1,
+  AnimatedInput,
+  ErrorSpan,
+  RegisterContainer,
+  Section,
+} from "./Login";
 
 export const Register = () => {
   const dispatch = useDispatch();
@@ -28,7 +35,7 @@ export const Register = () => {
     }
     console.log(userData);
 
-    dispatch(signUpRequest({ userData, navigate }));
+    dispatch(singUpRequest({ userData, navigate }));
   };
 
   return (
@@ -94,4 +101,3 @@ export const Register = () => {
     </RegisterContainer>
   );
 };
-

@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../api/axiosInstance";
-import { loginSuccess } from "../auth/authSlice";
-export const signUpRequest = createAsyncThunk(
-  "auth/signUpRequest",
+
+export const singUpRequest = createAsyncThunk(
+  "auth/singUpRequest",
   async ({ userData, navigate }, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.post("/register", userData);
-
+      const { data } = await axiosInstance.post("/register/", userData);
+      console.log("data: ", data);
+      localStorage.setItem("auth", JSON.stringify(data));
       if (data.data.role === "ADMIN") {
         navigate("/admin");
       } else {
@@ -15,27 +16,25 @@ export const signUpRequest = createAsyncThunk(
 
       return data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error);
     }
   }
 );
-
-export const signInRequest = createAsyncThunk(
-  "auth/signInRequest",
-  async ({ userData, navigate }, { dispatch, rejectWithValue }) => {
+export const sigInRequest = createAsyncThunk(
+  "auth/sigInRequest",
+  async ({ userData, navigate }, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.post("/auth", userData);
+      const { data } = await axiosInstance.post("/auth/", userData);
       localStorage.setItem("auth", JSON.stringify(data));
-      dispatch(loginSuccess(data));  
-
       if (data.data.role === "ADMIN") {
-        navigate("/");
+        navigate("/admin");
       } else {
         navigate("/user");
       }
+
       return data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error);
     }
-  }
+  } 
 );
