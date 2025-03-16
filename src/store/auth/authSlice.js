@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { sigInRequest, singUpRequest } from "../thunks/authThunks";
-// import SignIn from "../../components/auth/SignIn";
 
 export const authSlice = createSlice({
   name: "auth",
@@ -27,13 +26,11 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(singUpRequest.fulfilled, (state, action) => {
-        console.log("action: ", action);
         state.isLoading = false;
         state.role = action.payload.data.role;
         state.token = action.payload.data.token;
       })
       .addCase(singUpRequest.rejected, (state, action) => {
-        console.log("action: ", action);
         state.isLoading = false;
         state.isError = action.payload;
       });
@@ -43,4 +40,4 @@ export const authSlice = createSlice({
   },
 });
 
-export const { isAuth,logout } = authSlice.actions;
+export const { isAuth, logout } = authSlice.actions;
